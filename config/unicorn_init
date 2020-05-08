@@ -19,7 +19,7 @@ USAGE="Usage: $0 <start|stop|restart|upgrade|rotate|force-stop>"
 
 # app settings
 USER="maneyko"
-APP_NAME="appname"
+APP_NAME="rails_myapp"
 APP_ROOT="/home/maneyko/rails_myapp"
 ENV="production"
 

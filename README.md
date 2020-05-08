@@ -52,3 +52,10 @@ sudo ln -s /etc/nginx/sites-available/rails_myapp.conf /etc/nginx/site-enabled/r
 
 sudo service nginx restart
 ```
+
+Generate a secret key:
+
+```bash
+key="$(rake secret RAILS_ENV=production)"
+echo "SECRET_KEY_BASE=$key >> .env"
+```

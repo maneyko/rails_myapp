@@ -1,13 +1,13 @@
 class ApplicationController < ActionController::Base
 
   # GET /
-  def greeting
-    render json: { message: "Hiii there!! The time is #{Time.zone.now}" }
+  def index
+    render json: { message: "Hello there!! The time is #{Time.zone.now}" }
   end
 
   # GET /greeting/:name
   def personal_greeting
-    name = params.fetch(:name, "Peter")
+    name = params[:name]
     render json: { message: "Hello #{name}!" }
   end
 end
