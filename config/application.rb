@@ -21,7 +21,7 @@ dot_env_file = File.expand_path("../../.env", __FILE__)
 
 ENV.update Dotenv::Environment.new(dot_env_file, true)
 
-module Myapp
+module RailsMyapp
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 5.2
@@ -33,5 +33,8 @@ module Myapp
 
     # Don't generate system test files.
     config.generators.system_tests = nil
+
+    config.active_record.default_timezone = :local
+    config.time_zone = "Central Time (US & Canada)"
   end
 end

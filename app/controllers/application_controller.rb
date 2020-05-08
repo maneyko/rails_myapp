@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
 
   # GET /
   def greeting
-    render json: { message: "Hiii there!!" }
+    render json: { message: "Hiii there!! The time is #{Time.zone.now}" }
   end
 
   # GET /greeting/:name
