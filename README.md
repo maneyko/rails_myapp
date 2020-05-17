@@ -22,14 +22,14 @@ postgres=# \password rails_myapp
 
 Now add the password into the repo root `.env` file:
 
-```
+```bash
 password="my_secret_password"
 echo "DB_PASSWORD=$password" >> .env
 ```
 
 Then setup the databases:
 
-```
+```bash
 rails db:setup
 rails db:setup RAILS_ENV=production
 ```
@@ -41,14 +41,17 @@ sudo ln -s /etc/init.d/unicorn_rails_myapp config/unicorn_init
 
 sudo update-rc.d unicorn_rails_myapp defaults
 
+# You may need to run this twice
 sudo service unicorn_rails_myapp restart
 ```
 
-Set up NGINX:
+Set up NGINX (perform from inside the project git repo):
 
 ```bash
-sudo ln -s /etc/nginx/sites-available/rails_myapp.conf config/nginx.conf
+repo_root="$(git rev-parse --show-toplevel)"
+sudo ln -s /etc/nginx/sites-available/rails_myapp.conf "${repo_root}/config/nginx.conf"
 sudo ln -s /etc/nginx/sites-available/rails_myapp.conf /etc/nginx/site-enabled/rails_myapp.conf
+sudo ln -s "$repo_root" /var/www/
 
 sudo service nginx restart
 ```
