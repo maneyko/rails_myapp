@@ -20,13 +20,12 @@ USAGE="Usage: $0 <start|stop|restart|upgrade|rotate|force-stop>"
 # app settings
 USER="maneyko"
 APP_NAME="rails_myapp"
-APP_ROOT="/home/maneyko/rails_myapp"
+APP_ROOT="/var/www/rails_myapp"
 ENV="production"
 
 # environment settings
 CMD="cd $APP_ROOT && bundle exec unicorn -c config/unicorn.rb -E $ENV -D"
 PID="$APP_ROOT/tmp/pids/unicorn.pid"
-OLD_PID="$PID.oldbin"
 
 # make sure the app exists
 cd $APP_ROOT || exit 1
@@ -35,20 +34,24 @@ sig () {
   test -s "$PID" && kill -$1 `cat $PID`
 }
 
-oldsig () {
-  test -s $OLD_PID && kill -$1 `cat $OLD_PID`
+app_start() {
+  sig 0 && echo >&2 "Already running" && exit 0
+  echo "Starting $APP_NAME"
+  su - $USER -c "$CMD"
+}
+
+app_stop() {
+  echo "Stopping $APP_NAME"
+  sig QUIT || echo >&2 "Not running"
+  sleep 1
 }
 
 case $1 in
   start)
-    sig 0 && echo >&2 "Already running" && exit 0
-    echo "Starting $APP_NAME"
-    su - $USER -c "$CMD"
+    app_start
     ;;
   stop)
-    echo "Stopping $APP_NAME"
-    sig QUIT && exit 0
-    echo >&2 "Not running"
+    app_stop
     ;;
   force-stop)
     echo "Force stopping $APP_NAME"
@@ -56,9 +59,8 @@ case $1 in
     echo >&2 "Not running"
     ;;
   restart|reload|upgrade)
-    sig USR2 && echo "reloaded $APP_NAME" && exit 0
-    echo >&2 "Couldn't reload, starting '$CMD' instead"
-    $CMD
+    app_stop
+    app_start
     ;;
   rotate)
     sig USR1 && echo rotated logs OK && exit 0
