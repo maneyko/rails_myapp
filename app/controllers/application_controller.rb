@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
 
   # GET /
   def index
-    render json: { message: "Hello there!! The time is #{Time.zone.now}" }
+    render "layouts/index"
   end
 
   # GET /greeting/:name

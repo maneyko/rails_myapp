@@ -13,6 +13,8 @@ gem "listen"
 # Use Puma as the app server
 gem "unicorn-rails"
 
+gem "haml-rails"
+
 group :development, :test do
   gem "rspec-rails"
 end
