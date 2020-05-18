@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+  include Concerns::RenderingHelpers
 
   # GET /
   def index

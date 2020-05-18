@@ -31,6 +31,8 @@ module RailsMyapp
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
 
+    config.autoload_paths += [Rails.root.join("app"), Rails.root.join("lib")]
+
     # Don't generate system test files.
     config.generators.system_tests = nil
 
