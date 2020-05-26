@@ -1,8 +1,16 @@
-%p
-  Welcome to the Rails powered part of my web page!
-%p
-  The time is #{Time.zone.now}
-%p
-  #{hello}
-  - if true_bool
-    %span #{question}
+= content_for :body do
+  %br
+  %br
+  %div.row
+    %div.col-1
+    %div.col-10
+      %p
+        Welcome to the Rails powered part of my web page!
+      %p
+        The time is #{Time.zone.now}
+      %p
+        #{hello}
+        - if true_bool
+          %span #{question}
+    %div.col-1
+= render "shared/header"
