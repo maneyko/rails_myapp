@@ -13,6 +13,9 @@
 !/log/.keep
 !/tmp/.keep
 
+# vim files
+.*sw?
+
 # Ignore uploaded files in development
 /storage/*
 !/storage/.keep
