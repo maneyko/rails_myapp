@@ -1,17 +1,17 @@
 #!/bin/sh
 
 ### BEGIN INIT INFO
-# Provides:          unicorn
+# Provides:          puma
 # Required-Start:    $all
 # Required-Stop:     $all
 # Default-Start:     2 3 4 5
 # Default-Stop:      0 1 6
-# Short-Description: starts the unicorn app server
-# Description:       starts unicorn using start-stop-daemon
+# Short-Description: starts the puma app server
+# Description:       starts puma using start-stop-daemon
 ### END INIT INFO
 
-# This file should be linked to: /etc/init.d/unicorn_myapp
-# It should be called via: sudo service unicorn_myapp restart
+# This file should be linked to: /etc/init.d/puma_rails_myapp
+# It should be called via: sudo service puma_rails_myapp restart
 
 set -e
 
@@ -24,8 +24,8 @@ APP_ROOT="/var/www/rails_myapp"
 ENV="production"
 
 # environment settings
-CMD="cd $APP_ROOT && bundle exec unicorn -c config/unicorn.rb -E $ENV -D"
-PID="$APP_ROOT/tmp/pids/unicorn.pid"
+CMD="cd $APP_ROOT && bundle exec puma -C config/puma.rb -e $ENV -d"
+PID="$APP_ROOT/tmp/pids/puma.pid"
 
 # make sure the app exists
 cd $APP_ROOT || exit 1

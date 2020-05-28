@@ -14,13 +14,14 @@ gem "awesome_print"
 gem "pry"
 gem "hirb", require: false
 
-# Use Unicorn as the app server
-gem "unicorn-rails"
+# Use Puma as the app server
+gem "puma"
 
 gem "haml-rails"
 
 group :development, :test do
   gem "rspec-rails"
+  gem "yard"
 end
 
 group :test do

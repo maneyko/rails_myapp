@@ -4,6 +4,7 @@ To set up, install [RVM](https://rvm.io/rvm/install), and create postgres databa
 
 Most of the initial setup was done follwing these tutorials from Digital Ocean:
 * <https://www.digitalocean.com/community/tutorials/how-to-deploy-a-rails-app-with-unicorn-and-nginx-on-ubuntu-14-04>
+* <https://www.digitalocean.com/community/tutorials/how-to-deploy-a-rails-app-with-puma-and-nginx-on-ubuntu-14-04#install-and-configure-nginx>
 * <https://www.digitalocean.com/community/tutorials/how-to-use-postgresql-with-your-ruby-on-rails-application-on-ubuntu-18-04>
 
 To install all the gems, run:
@@ -43,12 +44,11 @@ rails db:setup RAILS_ENV=production
 Create the script that will be in `/etc/init.d`:
 
 ```bash
-sudo ln -s /etc/init.d/unicorn_rails_myapp config/unicorn_init
+sudo ln -s /etc/init.d/puma_rails_myapp config/puma_init.sh
 
-sudo update-rc.d unicorn_rails_myapp defaults
+sudo update-rc.d puma_rails_myapp defaults
 
-# You may need to run this twice
-sudo service unicorn_rails_myapp restart
+sudo service puma_rails_myapp restart
 ```
 
 Set up NGINX (perform from inside the project git repo):
