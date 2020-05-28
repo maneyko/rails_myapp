@@ -10,7 +10,11 @@ gem "pg", ">= 0.18", "< 2.0"
 
 gem "listen"
 
-# Use Puma as the app server
+gem "awesome_print"
+gem "pry"
+gem "hirb", require: false
+
+# Use Unicorn as the app server
 gem "unicorn-rails"
 
 gem "haml-rails"
