@@ -4,7 +4,7 @@ workers 1
 # Min and Max threads per worker
 threads 1, 6
 
-app_dir    = File.expand_path("../..", __FILE__)
+app_dir    = File.expand_path("../", __dir__)
 shared_dir = "#{app_dir}/tmp"
 
 # Default to production

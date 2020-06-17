@@ -10,6 +10,7 @@ class CreateScriptRunner < ActiveRecord::Migration[5.2]
       t.integer :script_runner_id, null: false
       t.column :status, :integer, default: 0
       t.string :result
+      t.timestamps
       t.index [:script_runner_id]
     end
 

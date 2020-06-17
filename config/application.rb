@@ -16,7 +16,7 @@ require "sprockets/railtie"
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
-dot_env_file = File.expand_path("../../.env", __FILE__)
+dot_env_file = File.expand_path("../.env", __dir__)
 
 ENV.update Dotenv::Environment.new(dot_env_file, true)
 

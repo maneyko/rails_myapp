@@ -19,6 +19,8 @@ ActiveRecord::Schema.define(version: 2020_06_16_221114) do
     t.integer "script_runner_id", null: false
     t.integer "status", default: 0
     t.string "result"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["script_runner_id"], name: "index_script_runner_jobs_on_script_runner_id"
   end
 

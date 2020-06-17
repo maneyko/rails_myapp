@@ -69,3 +69,9 @@ Generate a secret key:
 key="$(rake secret RAILS_ENV=production)"
 echo "SECRET_KEY_BASE=$key >> .env"
 ```
+
+Update crontab:
+
+```bash
+bundle exec whenever --update-crontab
+```
