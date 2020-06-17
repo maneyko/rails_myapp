@@ -1,31 +1,56 @@
 class ScriptRunnerController < ActionController::Base
-  # GET /script_runner_names
+
+  # GET /script_runners
   def index
-    render json: {status: "success", data: ScriptRunnerNames.all}
+    render json: {status: "success", data: ScriptRunner.all}
   end
 
-  # GET /script_runner_name/:id/run
+  # GET /script_runners/:id/run
   def run
-    begin
-      script_runner_name = ScriptRunnerName.find params[:id]
-    rescue ActiveRecord::RecordNotFound
-      return render json: {status: "failure", data: {message: "Could not find script_runner_name with id #{params[:id]}"}}
-    end
-
+    script_runner = find_id(ScriptRunner, params[:id]) or return render_error(ScriptRunner)
     if script_runner.running?
-      return render json: {status: "failure", data: {message: "The script is currently running"}}
+      render json: {status: "failure", data: {
+        message: "Already running",
+        job_id:  script_runner.script_runner_jobs.running.first.id
+      }}
     else
-      script_runner.name.camelize.constantize.run
+      script_runner_job = ScriptRunnerJob.create!(script_runner_id: script_runner.id)
+      script_runner.name.camelize.constantize.run(script_runner_job.id)
+      render json: {status: "success", data: {
+        message: "Running job",
+        job_id:  script_runner_job.id
+      }}
     end
   end
 
-  # GET /script_runners/:id/status
+  # GET /script_runner_jobs/:id/status
   def status
-    begin
-      script_runner = ScriptRunner.find params[:id]
-    rescue ActiveRecord::RecordNotFound
-      return render json: {status: "failure", data: {message: "Could not find script_runner with id #{params[:id]}"}}
+    script_runner_job = find_id(ScriptRunnerJob, params[:id]) or return render_error(ScriptRunnerJob)
+    render json: {status: "success", data: {status: script_runner_job.status}}
+  end
+
+  # GET /script_runner_jobs/:id/result
+  def result
+    script_runner_job = find_id(ScriptRunnerJob, params[:id]) or return render_error(ScriptRunnerJob)
+    if script_runner_job.running?
+      render json: {status: "failure", data: {
+        message: "Script is still running",
+        job_id:  script_runner_job.id
+      }}
+    else
+      render json: {status: "success", data: {result: script_runner_job.result}}
     end
-    return render json: {status: "success", data: {status: script_runner.status}}
+  end
+
+  def find_id(klass, id)
+    begin
+      klass.find id
+    rescue ActiveRecord::RecordNotFound
+      nil
+    end
+  end
+
+  def render_error(klass)
+    render json: {status: "failure", data: {message: "Could not find #{klass.name} with id #{params[:id]}"}}
   end
 end

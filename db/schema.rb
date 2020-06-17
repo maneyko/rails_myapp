@@ -15,21 +15,16 @@ ActiveRecord::Schema.define(version: 2020_06_16_221114) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "script_runner_names", id: :serial, force: :cascade do |t|
-    t.text "name", null: false
-    t.index ["name"], name: "index_script_runner_names_on_name", unique: true
-  end
-
-  create_table "script_runner_results", force: :cascade do |t|
-    t.string "result"
-    t.integer "status", default: 0
+  create_table "script_runner_jobs", force: :cascade do |t|
     t.integer "script_runner_id", null: false
-    t.index ["script_runner_id"], name: "index_script_runner_results_on_script_runner_id"
+    t.integer "status", default: 0
+    t.string "result"
+    t.index ["script_runner_id"], name: "index_script_runner_jobs_on_script_runner_id"
   end
 
   create_table "script_runners", force: :cascade do |t|
-    t.integer "script_runner_name_id", null: false
-    t.index ["script_runner_name_id"], name: "index_script_runners_on_script_runner_name_id"
+    t.text "name", null: false
+    t.index ["name"], name: "index_script_runners_on_name", unique: true
   end
 
   create_table "visits", force: :cascade do |t|
@@ -38,5 +33,4 @@ ActiveRecord::Schema.define(version: 2020_06_16_221114) do
     t.datetime "updated_at", null: false
   end
 
-  add_foreign_key "script_runners", "script_runner_names"
 end
