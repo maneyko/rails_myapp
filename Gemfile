@@ -14,6 +14,8 @@ gem "awesome_print"
 gem "pry"
 gem "hirb", require: false
 
+gem "whenever", require: false
+
 # Use Puma as the app server
 gem "puma"
 

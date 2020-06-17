@@ -3,9 +3,9 @@
 To set up, install [RVM](https://rvm.io/rvm/install), and create postgres databases.
 
 Most of the initial setup was done follwing these tutorials from Digital Ocean:
-* <https://www.digitalocean.com/community/tutorials/how-to-deploy-a-rails-app-with-unicorn-and-nginx-on-ubuntu-14-04>
-* <https://www.digitalocean.com/community/tutorials/how-to-deploy-a-rails-app-with-puma-and-nginx-on-ubuntu-14-04#install-and-configure-nginx>
-* <https://www.digitalocean.com/community/tutorials/how-to-use-postgresql-with-your-ruby-on-rails-application-on-ubuntu-18-04>
+* [How To Deploy a Rails App with Unicorn and Nginx on Ubuntu 14.04](https://www.digitalocean.com/community/tutorials/how-to-deploy-a-rails-app-with-unicorn-and-nginx-on-ubuntu-14-04)
+* [How To Deploy a Rails App with Puma and Nginx on Ubuntu 14.04](https://www.digitalocean.com/community/tutorials/how-to-deploy-a-rails-app-with-puma-and-nginx-on-ubuntu-14-04)
+* [How To Use PostgreSQL with Your Ruby on Rails Application on Ubuntu 18.04](https://www.digitalocean.com/community/tutorials/how-to-use-postgresql-with-your-ruby-on-rails-application-on-ubuntu-18-04)
 
 To install all the gems, run:
 
@@ -47,6 +47,7 @@ Create the script that will be in `/etc/init.d`:
 sudo ln -s /etc/init.d/puma_rails_myapp config/puma_init.sh
 
 sudo update-rc.d puma_rails_myapp defaults
+systemctl daemon-reload
 
 sudo service puma_rails_myapp restart
 ```
@@ -55,7 +56,7 @@ Set up NGINX (perform from inside the project git repo):
 
 ```bash
 repo_root="$(git rev-parse --show-toplevel)"
-sudo ln -s /etc/nginx/sites-available/rails_myapp.conf "${repo_root}/config/nginx.conf"
+sudo ln -s "${repo_root}/config/nginx.conf" /etc/nginx/sites-available/rails_myapp.conf
 sudo ln -s /etc/nginx/sites-available/rails_myapp.conf /etc/nginx/site-enabled/rails_myapp.conf
 sudo ln -s "$repo_root" /var/www/
 
