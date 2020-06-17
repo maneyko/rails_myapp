@@ -19,9 +19,9 @@
 
 # Learn more: http://github.com/javan/whenever
 #
-set :output, "#{File.expand_path("../log/whenever.log", __dir__)}"
+set :output, File.expand_path("../log/whenever.log", __dir__)
 
 every 5.minutes do
-  command "curl -sL http://localhost:3000/script_runners/1/run"
+  command "{ curl -sL http://localhost:3000/script_runners/1/run && echo; }"
 end
 

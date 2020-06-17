@@ -5,6 +5,7 @@ Rails.application.routes.draw do
 
   get "/script_runners",                to: "script_runner#index"
   get "/script_runners/:id/run",        to: "script_runner#run"
+  get "/script_runner_jobs",            to: "script_runner#latest_jobs"
   get "/script_runner_jobs/:id/status", to: "script_runner#status"
   get "/script_runner_jobs/:id/result", to: "script_runner#result"
 end

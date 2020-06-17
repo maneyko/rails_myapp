@@ -42,6 +42,11 @@ class ScriptRunnerController < ActionController::Base
     end
   end
 
+  # GET /script_runner_jobs
+  def latest_jobs
+    render json: {status: "success", data: ScriptRunnerJob.last(5)}
+  end
+
   def find_id(klass, id)
     begin
       klass.find id
