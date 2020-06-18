@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   get "/jobs",                   to: "job#index"
   get "/jobs/:id/run",           to: "job#run"
   get "/job_results",            to: "job#latest_jobs"
+  get "/job_results/:start",     to: "job#latest_jobs_by_5"
   get "/job_results/:id/status", to: "job#status"
   get "/job_results/:id/result", to: "job#result"
 end

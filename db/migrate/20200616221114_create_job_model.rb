@@ -9,7 +9,7 @@ class CreateJobModel < ActiveRecord::Migration[5.2]
     create_table :job_results do |t|
       t.integer :job_id, null: false
       t.column :status, :integer, default: 0
-      t.string :result
+      t.jsonb :result
       t.timestamps
       t.index [:job_id]
     end

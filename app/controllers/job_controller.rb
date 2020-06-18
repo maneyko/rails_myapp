@@ -44,7 +44,19 @@ class JobController < ActionController::Base
 
   # GET /job_results
   def latest_jobs
-    render json: {status: "success", data: JobResult.last(5)}
+    render json: JSON.pretty_generate({
+      status: "success",
+      data: JobResult.last(5).as_json
+    })
+  end
+
+  # GET /job_results/:start
+  def latest_jobs_by_5
+    start = params[:start].to_i + 5
+    render json: JSON.pretty_generate({
+      status: "success",
+      data: JobResult.first(start).last(5).as_json
+    })
   end
 
   def find_id(klass, id)

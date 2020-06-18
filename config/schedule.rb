@@ -21,7 +21,7 @@
 #
 set :output, File.expand_path("../log/whenever.log", __dir__)
 
-every 5.minutes do
+every 1.minute do
   command "{ curl -sL http://localhost:3000/jobs/1/run && echo; }"
 end
 

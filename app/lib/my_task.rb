@@ -14,7 +14,7 @@ class MyTask
       job = JobResult.find job_result_id
       job.running!
       result = %x{ps aux --sort -rss | awk '{n+=$4}END{print n}' && sleep 15}.chomp
-      job.update_attribute(:result, result)
+      job.update_attribute(:result, {memory_usage_percent: result})
       job.not_running!
     end
   end
