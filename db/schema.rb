@@ -15,18 +15,18 @@ ActiveRecord::Schema.define(version: 2020_06_16_221114) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "script_runner_jobs", force: :cascade do |t|
-    t.integer "script_runner_id", null: false
+  create_table "job_results", force: :cascade do |t|
+    t.integer "job_id", null: false
     t.integer "status", default: 0
     t.string "result"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["script_runner_id"], name: "index_script_runner_jobs_on_script_runner_id"
+    t.index ["job_id"], name: "index_job_results_on_job_id"
   end
 
-  create_table "script_runners", force: :cascade do |t|
+  create_table "jobs", force: :cascade do |t|
     t.text "name", null: false
-    t.index ["name"], name: "index_script_runners_on_name", unique: true
+    t.index ["name"], name: "index_jobs_on_name", unique: true
   end
 
   create_table "visits", force: :cascade do |t|
