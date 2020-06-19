@@ -11,11 +11,11 @@ class MyTask
 
   def self.run(job_result_id)
     Thread.new do
-      job = JobResult.find job_result_id
-      job.running!
+      job_result = JobResult.find job_result_id
+      job_result.running!
       result = %x{ps aux --sort -rss | awk '{n+=$4}END{print n}' && sleep 15}.chomp
-      job.update_attribute(:result, {memory_usage_percent: result})
-      job.not_running!
+      job_result.update_attribute(:result, {memory_usage_percent: result})
+      job_result.not_running!
     end
   end
 end

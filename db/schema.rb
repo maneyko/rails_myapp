@@ -18,7 +18,7 @@ ActiveRecord::Schema.define(version: 2020_06_16_221114) do
   create_table "job_results", force: :cascade do |t|
     t.integer "job_id", null: false
     t.integer "status", default: 0
-    t.string "result"
+    t.jsonb "result"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["job_id"], name: "index_job_results_on_job_id"

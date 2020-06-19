@@ -1,1 +1,1 @@
-class Visit < ApplicationRecord; end
+class Visit < ActiveRecord::Base; end
