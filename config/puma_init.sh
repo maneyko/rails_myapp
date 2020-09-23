@@ -24,7 +24,7 @@ APP_ROOT="/var/www/rails_myapp"
 ENV="production"
 
 # environment settings
-CMD="cd $APP_ROOT && bundle exec puma -C config/puma.rb -e $ENV -d"
+CMD="cd $APP_ROOT && bundle exec puma -C config/puma.rb -e $ENV"
 PID="$APP_ROOT/tmp/pids/puma.pid"
 
 # make sure the app exists
