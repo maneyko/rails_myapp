@@ -20,8 +20,8 @@ gem "whenever", require: false
 gem "puma"
 
 gem "haml-rails"
-gem 'rbtrace'
-gem 'stackprof', require: false
+gem "rbtrace"
+gem "stackprof", require: false
 
 group :development, :test do
   gem "rspec-rails"

@@ -6,11 +6,20 @@
     %div.col-10
       %p
         Welcome to the Rails powered part of my web page!
-      %p
-        The time is #{Time.zone.now}
+      %p<>
+        The time is #{Time.zone.now}:
+        %span>
+          = "123-456-7890"
+        ~ ","
+        %span
+          = "345-453-5324"
       %p
         #{hello}
         - if true_bool
           %span #{question}
+      %p
+        = form_for :hello, method: :post, html: {id: "none"} do |form|
+          = hidden_field_tag :nothing
+          %p Hello
     %div.col-1
 = render "shared/header"

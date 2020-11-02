@@ -8,17 +8,22 @@ class JobController < ActionController::Base
   # GET /jobs/:id/run
   def run
     job = find_id(Job, params[:id]) or return render_error(Job)
-    unless job.running?
+
+    if job.running? && job.job_results.running.last.created_at < 20.minutes.ago
+      job.job_results.running.each do |job_result|
+        job_result.not_running!
+      end
+    elsif job.running?
+      render json: {status: "failure", data: {
+        message: "Already running",
+        job_id:  job.job_results.running.first.id
+      }}
+    else
       job_result = JobResult.create!(job_id: job.id)
       job.name.camelize.constantize.run(job_result.id)
       render json: {status: "success", data: {
         message: "Running job",
         job_id:  job_result.id
-      }}
-    else
-      render json: {status: "failure", data: {
-        message: "Already running",
-        job_id:  job.job_results.running.first.id
       }}
     end
   end
