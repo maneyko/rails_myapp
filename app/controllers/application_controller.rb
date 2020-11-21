@@ -7,11 +7,16 @@ class ApplicationController < ActionController::Base
     render "layouts/index"
   end
 
+  # GET /echo
+  def echo
+    render json: { data: params.except(:action, :controller).as_json.merge(timestamp: Time.zone.now.iso8601), status: "success" }
+  end
+
   # GET /greeting/:name
   def personal_greeting
     log_ip(request)
     name = params[:name]
-    render json: { message: "Hello #{name}!" }
+    render json: { data: "Hello #{name}!" }
   end
 
   private def log_ip(request)

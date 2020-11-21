@@ -17,6 +17,8 @@
         #{hello}
         - if true_bool
           %span #{question}
+          %script(type="text/javascript")
+            console.log("Hello world, the time is #{Time.zone.now}.")
       %p
         = form_for :hello, method: :post, html: {id: "none"} do |form|
           = hidden_field_tag :nothing

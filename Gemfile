@@ -19,6 +19,8 @@ gem "whenever", require: false
 # Use Puma as the app server
 gem "puma"
 
+gem "rack-cors"
+
 gem "haml-rails"
 gem "rbtrace"
 gem "stackprof", require: false

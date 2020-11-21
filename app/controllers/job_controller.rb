@@ -53,9 +53,11 @@ class JobController < ActionController::Base
 
   # GET /job_results
   def latest_jobs
+    num_entries = (params[:n] || 5).to_i
+
     render json: JSON.pretty_generate({
       status: "success",
-      data: JobResult.last(5).as_json
+      data: JobResult.last(num_entries).as_json
     })
   end
 
